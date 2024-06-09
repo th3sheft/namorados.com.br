@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Você me ama?</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffecd2;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: fall 2s infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Você me ama?</h1>
+        <button id="yesBtn">Sim</button>
+        <button id="noBtn">Não</button>
+    </div>
+    <script>
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            for (let i = 0; i < 100; i++) {
+                createHeart();
+            }
+        });
+
+        document.getElementById('noBtn').addEventListener('click', function() {
+            this.textContent = 'Claro que sim';
+            this.removeEventListener('click', arguments.callee);
+            this.addEventListener('click', function() {
+                document.getElementById('noBtn').textContent = 'Eu sabia';
+                for (let i = 0; i < 100; i++) {
+                    createHeart();
+                }
+            });
+        });
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
